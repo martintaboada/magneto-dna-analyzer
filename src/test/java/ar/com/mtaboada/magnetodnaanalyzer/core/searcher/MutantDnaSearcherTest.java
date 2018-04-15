@@ -24,12 +24,12 @@ import ar.com.mtaboada.magnetodnaanalyzer.model.Dna;
 @RunWith(MockitoJUnitRunner.class)
 public class MutantDnaSearcherTest {
 
-	private static final Dna NORMAL_DNA = new Dna(null);
-	private static final Dna NORMAL_DNA_WITH_ONE_SEQUENCE = new Dna(null);
-	private static final Dna MUTANT_DNA_HORIZONTAL_DETECT_ONLY = new Dna(null);
-	private static final Dna MUTANT_DNA_VERTICAL_DETECT_ONLY = new Dna(null);
-	private static final Dna MUTANT_DNA_DIAGONAL_DETECT_ONLY = new Dna(null);
-	private static final Dna MUTANT_DNA_MIXED_DETECT = new Dna(null);
+	private static final Dna NORMAL_DNA = new Dna(null, 0);
+	private static final Dna NORMAL_DNA_WITH_ONE_SEQUENCE = new Dna(null, 0);
+	private static final Dna MUTANT_DNA_HORIZONTAL_DETECT_ONLY = new Dna(null, 0);
+	private static final Dna MUTANT_DNA_VERTICAL_DETECT_ONLY = new Dna(null, 0);
+	private static final Dna MUTANT_DNA_DIAGONAL_DETECT_ONLY = new Dna(null, 0);
+	private static final Dna MUTANT_DNA_MIXED_DETECT = new Dna(null, 0);
 
 	private MutantDnaSearcher sut;
 
