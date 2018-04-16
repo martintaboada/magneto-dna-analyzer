@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * Business Model representation of DNA Has internal representation (sequence)
+ * of {@link NitrogenBase} Matrix
  *
  * @author mtaboada
  *
@@ -21,14 +23,24 @@ public class Dna {
 		this.matrixSize = matrixSize;
 	}
 
+	/**
+	 * Get internal representation of dna sequence
+	 */
 	public NitrogenBase[][] getSequence() {
 		return sequence;
 	}
 
+	/**
+	 * Determine N of matrix of NxN
+	 *
+	 */
 	public int getMatrixSize() {
 		return matrixSize;
 	}
 
+	/**
+	 * Get rows of dna sequence. Is original input
+	 */
 	public List<List<NitrogenBase>> getRows() {
 		List<List<NitrogenBase>> rows = new ArrayList<>();
 		for (int i = 0; i < matrixSize; i++) {
@@ -38,6 +50,9 @@ public class Dna {
 		return rows;
 	}
 
+	/**
+	 * Get columns of dna sequence
+	 */
 	public List<List<NitrogenBase>> getColumns() {
 		List<List<NitrogenBase>> columns = new ArrayList<>();
 		for (int i = 0; i < matrixSize; i++) {

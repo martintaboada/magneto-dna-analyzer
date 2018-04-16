@@ -1,6 +1,13 @@
 package ar.com.mtaboada.magnetodnaanalyzer.testutils;
 
+import static ar.com.mtaboada.magnetodnaanalyzer.model.NitrogenBase.ADENINE;
+import static ar.com.mtaboada.magnetodnaanalyzer.model.NitrogenBase.CYTOKINE;
+import static ar.com.mtaboada.magnetodnaanalyzer.model.NitrogenBase.GUANINE;
+import static ar.com.mtaboada.magnetodnaanalyzer.model.NitrogenBase.THYMINE;
+
 import ar.com.mtaboada.magnetodnaanalyzer.api.dto.DnaDto;
+import ar.com.mtaboada.magnetodnaanalyzer.model.Dna;
+import ar.com.mtaboada.magnetodnaanalyzer.model.NitrogenBase;
 
 /**
  * Only test class. Build standard input to dna sequence
@@ -33,6 +40,13 @@ public class SequenceBuilderTestUtils {
 			"CAACTG" };
 	public final static String[] INVALID_EMPTY_SEQUENCE = {};
 
+	public final static NitrogenBase[][] A_VALID_SEQUENCE = { { ADENINE, THYMINE, ADENINE, THYMINE, ADENINE, THYMINE },
+			{ GUANINE, CYTOKINE, GUANINE, GUANINE, CYTOKINE, GUANINE },
+			{ ADENINE, THYMINE, ADENINE, THYMINE, ADENINE, THYMINE },
+			{ ADENINE, THYMINE, ADENINE, THYMINE, ADENINE, THYMINE },
+			{ CYTOKINE, GUANINE, CYTOKINE, GUANINE, CYTOKINE, GUANINE },
+			{ ADENINE, THYMINE, ADENINE, THYMINE, ADENINE, THYMINE } };
+
 	public static DnaDto getValidMutantDnaDto() {
 		DnaDto result = new DnaDto();
 		result.setDna(VALID_MUTANT_SEQUENCE_N6);
@@ -43,6 +57,10 @@ public class SequenceBuilderTestUtils {
 		DnaDto result = new DnaDto();
 		result.setDna(VALID_HUMAN_SEQUENCE_N6);
 		return result;
+	}
+
+	public static Dna getValidDna() {
+		return new Dna(A_VALID_SEQUENCE, 6);
 	}
 
 }

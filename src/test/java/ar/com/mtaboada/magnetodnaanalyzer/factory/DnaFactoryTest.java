@@ -1,6 +1,11 @@
 package ar.com.mtaboada.magnetodnaanalyzer.factory;
 
+import static ar.com.mtaboada.magnetodnaanalyzer.model.NitrogenBase.ADENINE;
+import static ar.com.mtaboada.magnetodnaanalyzer.model.NitrogenBase.CYTOKINE;
+import static ar.com.mtaboada.magnetodnaanalyzer.model.NitrogenBase.GUANINE;
+import static ar.com.mtaboada.magnetodnaanalyzer.model.NitrogenBase.THYMINE;
 import static ar.com.mtaboada.magnetodnaanalyzer.testutils.SequenceBuilderTestUtils.VALID_HUMAN_SEQUENCE_N6;
+import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
@@ -10,6 +15,7 @@ import org.junit.Test;
 
 import ar.com.mtaboada.magnetodnaanalyzer.core.factory.DnaFactory;
 import ar.com.mtaboada.magnetodnaanalyzer.model.Dna;
+import ar.com.mtaboada.magnetodnaanalyzer.model.NitrogenBase;
 import ar.com.mtaboada.magnetodnaanalyzer.testutils.SequenceBuilderTestUtils;
 
 /**
@@ -77,5 +83,23 @@ public class DnaFactoryTest {
 	@Test(expected = IllegalArgumentException.class)
 	public void whenHasAInvalidSequenceWithInvalidCharCantBuildDna() {
 		sut.build(SequenceBuilderTestUtils.INVALID_SEQUENCE_CHAR_INVALID);
+	}
+
+	@Test
+	public void integralTest_whenHasValidDataThenCanGetDnaInCorrectOrder() {
+		// Setup
+		NitrogenBase[][] expectedSequence = { { ADENINE, THYMINE, ADENINE, THYMINE, ADENINE, THYMINE },
+				{ GUANINE, CYTOKINE, GUANINE, GUANINE, CYTOKINE, GUANINE },
+				{ ADENINE, THYMINE, ADENINE, THYMINE, ADENINE, THYMINE },
+				{ ADENINE, THYMINE, ADENINE, THYMINE, ADENINE, THYMINE },
+				{ CYTOKINE, GUANINE, CYTOKINE, GUANINE, CYTOKINE, GUANINE },
+				{ ADENINE, THYMINE, ADENINE, THYMINE, ADENINE, THYMINE } };
+
+		// Exercise
+		Dna result = sut.build(VALID_HUMAN_SEQUENCE_N6);
+		NitrogenBase[][] sequence = result.getSequence();
+
+		// Verify
+		assertArrayEquals(expectedSequence, sequence);
 	}
 }
