@@ -21,8 +21,19 @@ public class StatsDtoFactory {
 			throw new WithoutOperationToResumeException();
 		}
 		StatsDto statsDto = new StatsDto();
-		statsDto.setCountHumanDna(stats.get(AnalysisResult.HUMAN.toString()));
-		statsDto.setCountMutantDna(stats.get(AnalysisResult.MUTANT.toString()));
+		if (stats.containsKey(AnalysisResult.HUMAN.toString())) {
+			statsDto.setCountHumanDna(stats.get(AnalysisResult.HUMAN.toString()));
+		} else {
+			statsDto.setCountHumanDna(INTEGER_ZERO);
+		}
+
+		if (stats.containsKey(AnalysisResult.MUTANT.toString())) {
+
+			statsDto.setCountMutantDna(stats.get(AnalysisResult.MUTANT.toString()));
+		} else {
+			statsDto.setCountMutantDna(INTEGER_ZERO);
+		}
+
 		if (statsDto.getCountHumanDna().equals(INTEGER_ZERO) && statsDto.getCountMutantDna().equals(INTEGER_ZERO)) {
 			statsDto.setRatio(DOUBLE_ZERO);
 		}

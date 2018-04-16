@@ -104,6 +104,36 @@ public class StatsDtoFactoryTest {
 		assertTrue(result.getRatio() == 1.0);
 	}
 
+	@Test
+	public void whenHasDataInMutantCategoryButNotInHUmanThenCanGetReportWithRatio1OnMutantOK() {
+		// Setup
+		Map<String, Integer> statsAsMap = new HashMap<>();
+		statsAsMap.put(AnalysisResult.MUTANT.toString(), 200);
+
+		// Exercise
+		StatsDto result = sut.build(statsAsMap);
+
+		// Verify
+		assertEquals(valueOf(0), result.getCountHumanDna());
+		assertEquals(valueOf(200), result.getCountMutantDna());
+		assertTrue(result.getRatio() == 1.0);
+	}
+
+	@Test
+	public void whenHasDataInHumanCategoryButNotInMutantThenCanGetReportWithRatio0OnMutantOK() {
+		// Setup
+		Map<String, Integer> statsAsMap = new HashMap<>();
+		statsAsMap.put(AnalysisResult.HUMAN.toString(), 200);
+
+		// Exercise
+		StatsDto result = sut.build(statsAsMap);
+
+		// Verify
+		assertEquals(valueOf(200), result.getCountHumanDna());
+		assertEquals(valueOf(0), result.getCountMutantDna());
+		assertTrue(result.getRatio() == 0.0);
+	}
+
 	/**
 	 * functionally not possible
 	 */
