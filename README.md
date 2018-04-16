@@ -14,6 +14,7 @@ Instalación en el lugar donde baje el código puede ejecutar el .bat o .sh (seg
 Instalación en un entorno:
 - Correr el comando mnv package para generar el lote el .jar
 - Llevarlo a su entorno y ejecutarlo. Al ser una aplicación preparada con spring boot cuenta con un tomcat embebido que escucha en el puerto 8080 por lo que tendrá que tenerlo libre al momento de la ejecución.
+- De momento el punto de ensamble a mongodb esta en application.properties y debe modificarse según se desee y se tenga acceso.
 
 
 Métodos de API
