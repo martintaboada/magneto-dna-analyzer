@@ -2,6 +2,7 @@ package ar.com.mtaboada.magnetodnaanalyzer.controller;
 
 import static org.springframework.http.HttpStatus.FORBIDDEN;
 import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
+import static org.springframework.http.HttpStatus.NOT_FOUND;
 import static org.springframework.http.HttpStatus.OK;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import ar.com.mtaboada.magnetodnaanalyzer.api.dto.DnaDto;
 import ar.com.mtaboada.magnetodnaanalyzer.api.dto.StatsDto;
+import ar.com.mtaboada.magnetodnaanalyzer.core.exception.WithoutOperationToResumeException;
 import ar.com.mtaboada.magnetodnaanalyzer.core.factory.DnaFactory;
 import ar.com.mtaboada.magnetodnaanalyzer.core.service.AnalysisService;
 import ar.com.mtaboada.magnetodnaanalyzer.model.Dna;
@@ -53,16 +55,35 @@ public class DnaAnalyzerEndPointController {
 
 	}
 
+	/**
+	 * Report number of analyzes performed
+	 */
 	@RequestMapping(value = "/stats", method = GET)
 	public StatsDto getStats() {
 		return analysisService.getStats();
 	}
 
+	/**
+	 * Handle illegalArgumentException when dna parameter is not valid
+	 */
 	@ExceptionHandler(IllegalArgumentException.class)
-	public ResponseEntity<SimpleMessageView> illegalDnaHandle(final IllegalArgumentException e) {
+	public ResponseEntity<SimpleMessageView> illegalDnaHandler(final IllegalArgumentException e) {
 		return standardErrorReport(e);
 	}
 
+	/**
+	 * Handle {@link WithoutOperationToResumeException}. Occurs when there is no
+	 * analysis information
+	 */
+	@ExceptionHandler(WithoutOperationToResumeException.class)
+	public ResponseEntity<SimpleMessageView> withoutOperationToResumeException(
+			final WithoutOperationToResumeException e) {
+		return new ResponseEntity<>(new SimpleMessageView(NOT_FOUND.value(), "Without statistic"), NOT_FOUND);
+	}
+
+	/**
+	 * Handle unexpected error
+	 */
 	@ExceptionHandler(Exception.class)
 	public ResponseEntity<SimpleMessageView> errorHandler(final Exception e) {
 		return standardErrorReport(e);

@@ -1,5 +1,6 @@
 package ar.com.mtaboada.magnetodnaanalyzer.core.analyzer;
 
+import org.apache.commons.lang3.NotImplementedException;
 import org.springframework.stereotype.Component;
 
 import ar.com.mtaboada.magnetodnaanalyzer.model.AnalysisResult;
@@ -15,7 +16,7 @@ public class GreedyDnaAnalyzer implements DnaAnalyzer {
 
 	@Override
 	public AnalysisResult analyze(final Dna dna) {
-		return null;
+		throw new NotImplementedException("Without implementation");
 	}
 
 }

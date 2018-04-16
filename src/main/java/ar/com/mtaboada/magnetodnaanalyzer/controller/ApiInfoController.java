@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import ar.com.mtaboada.magnetodnaanalyzer.api.endpoint.HeartbeatEndPoint;
 
 /**
+ * Healthiness of the application. Allows aplication heartbeat
  *
  * @author mtaboada
  *
@@ -20,6 +21,9 @@ import ar.com.mtaboada.magnetodnaanalyzer.api.endpoint.HeartbeatEndPoint;
 @Controller
 public class ApiInfoController implements HeartbeatEndPoint {
 
+	/**
+	 * Heartbeat
+	 */
 	@Override
 	@ResponseBody
 	@RequestMapping(value = "/healthCheck", method = GET)

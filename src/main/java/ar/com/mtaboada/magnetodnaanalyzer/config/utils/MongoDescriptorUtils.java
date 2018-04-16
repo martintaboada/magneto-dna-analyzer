@@ -3,6 +3,11 @@ package ar.com.mtaboada.magnetodnaanalyzer.config.utils;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ *
+ * @author mtaboada
+ *
+ */
 public class MongoDescriptorUtils {
 
 	private static final int PORT_INDEX = 1;

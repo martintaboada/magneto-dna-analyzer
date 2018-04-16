@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 import ar.com.mtaboada.magnetodnaanalyzer.api.dto.StatsDto;
 import ar.com.mtaboada.magnetodnaanalyzer.core.analyzer.DnaAnalyzer;
 import ar.com.mtaboada.magnetodnaanalyzer.core.factory.AnalysisReportFactory;
+import ar.com.mtaboada.magnetodnaanalyzer.core.factory.StatsDtoFactory;
 import ar.com.mtaboada.magnetodnaanalyzer.model.AnalysisResult;
 import ar.com.mtaboada.magnetodnaanalyzer.model.CountProjection;
 import ar.com.mtaboada.magnetodnaanalyzer.model.Dna;
@@ -43,18 +44,19 @@ public class AnalysisReportServiceImpl implements AnalysisService {
 	@Override
 	public StatsDto getStats() {
 		List<CountProjection> counterReport = analysisReportDao.getStatsReport();
+		Map<String, Integer> stats = interpretProjection(counterReport);
+		return new StatsDtoFactory().build(stats);
+	}
+
+	private Map<String, Integer> interpretProjection(List<CountProjection> counterReport) {
 		Map<String, Integer> stats = new HashMap<>();
-		StatsDto statsDto = new StatsDto();
 		for (CountProjection countProjection : counterReport) {
 			if (!stats.containsKey(countProjection.get_id())) {
 				stats.put(countProjection.get_id(), 0);
 			}
 			stats.put(countProjection.get_id(), stats.get(countProjection.get_id()) + countProjection.getCount());
 		}
-		statsDto.setCountHumanDna(stats.get(AnalysisResult.HUMAN.toString()));
-		statsDto.setCountMutantDna(stats.get(AnalysisResult.MUTANT.toString()));
-		statsDto.setRatio((double) statsDto.getCountMutantDna() / (double) statsDto.getCountHumanDna());
-		return statsDto;
+		return stats;
 	}
 
 }
